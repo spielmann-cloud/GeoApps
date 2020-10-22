@@ -26,6 +26,7 @@
 				<h2>Tagging</h2>
 
 				<!-- ############### Aufgabe1a Form1 Start -->
+				<strong>
 				<form id="tag-form" action="/tagging" method="post">
 					<fieldset>
 						<legend>Enter new GeoTag</legend>
@@ -38,18 +39,19 @@
 						<input type="text" id="nameID" name="name" pattern="[a-zA-Z]+" placeholder="some name" maxlength="10" required>
 						<label for="hashID">hashtag</label>
 						<input type="text" id="hashID" name="hashtag" pattern="#[A-Za-z]+" placeholder="# + max 10 letters" maxlength="11" required>
-						<input type="submit" name="" value="Submit" id="subTagID">
+						<input type="submit" name="" value="submit" id="subTagID">
 					</fieldset>
 
 				</form>
 				<!-- ############### Aufgabe1a Form1 Ende -->
-
+			</strong>
 			</section>
 
 			<section class="discovery">
 				<h2>Discovery</h2>
 
 				<!-- ############### Aufgabe1a Form2 Start -->
+				<strong>
 				<form id="filter-form" action="/discovery" method="post">
 					<fieldset>
 						<legend>Filter by Searchterm</legend>
@@ -58,6 +60,7 @@
 
 					</fieldset>
 				</form>
+			</strong>
 				<!-- ############### Aufgabe1a Form2 Ende -->
 
 				<div class="taglist">
@@ -68,7 +71,7 @@
 				</div>
 
 				<div class="tagmap">
-					<img id="result-img" src="./images/mapview.jpg" alt="a map with locations"/>
+					<img id="result-img" src="./images/mapview.jpg" alt="a map with locations" />
 					<div class="caption">Result map</div>
 				</div>
 

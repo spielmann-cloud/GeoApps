@@ -9,32 +9,84 @@ a {
 
 header{
   background: gray;
-  padding: 10px;
+  padding: 15px;
 }
 
 h1{
   color: white;
 }
-
 footer{
   background: gray;
   padding: 10px;
   color: white;
+  clear: both;
+  margin-top: 20px;
+  padding: 15px;
 }
 
 main{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  gap: 20px;
 
+}
+.tagging label, .tagging input{
+  display: block;
+  margin-bottom: 7px;
+}
+input{
+  height: 30px;
+}
+.tagging input[type="submit"]{
+  height: 30px;
+  margin-top: 10px;
+}
+.discovery input[type="submit"]{
+  height: 35px;
+  margin-left: 5px;
 }
 .tagging{
-
-  flex: 1;
-  border: 1px solid black;
+  flex: 2;
+  margin-left: 20px;
 }
 .discovery{
+    flex: 10;
 
-    flex: 1;
-    border: 1px solid black;
+}
+.taglist{
+  display: inline-block;
+  width: 45%;
+
+}
+.taglist ul{
+  text-align: center;
+  padding-left: 20px;
+}
+.tagmap{
+  width: 50%;
+  margin: 10px;
+  float: right;
+  display: inline-block;
+}
+.tagmap img {
+  display: block;
+
+}
+#filter-form fieldset{
+  padding: 15px;
+}
+#results li{
+  background-color: #00B7FF;
+  padding: 10px;
+  color: white;
+  margin-bottom: 5px;
+  list-style-type: none;
+  text-align: left;
+  width: 90%;
+  word-wrap: break-word;
+}
+
+* {
+  box-sizing: border-box;
 }
