@@ -26,17 +26,18 @@
 				<h2>Tagging</h2>
 
 				<!-- ############### Aufgabe1a Form1 Start -->
-				<form id="tag-form" action="/tagging" method="post">
+				<form id="tag-form"  method="post">
 					<fieldset>
 						<legend>Enter new GeoTag</legend>
 						<label for="latID">latitude</label>
+						<!-- Validierung für longtitude and latitude ?-->
 						<input type="text" id="latID" name="latitude" value="" placeholder="49.244531899999999995" required>
 						<label for="longID">longtitude</label>
 						<input type="text" id="longID" name="longtitude" value="" placeholder="8.7248984" required>
 						<label for="nameID">name</label>
-						<input type="text" id="nameID" name="name" value="" placeholder="some name" maxlength="10" required>
+						<input type="text" id="nameID" name="name" pattern="[a-zA-Z]+" placeholder="some name" maxlength="10" required>
 						<label for="hashID">hashtag</label>
-						<input type="text" id="hashID" name="hashtag" pattern="#[A-Z]+" placeholder="# + max 10 letters" maxlength="11" required>
+						<input type="text" id="hashID" name="hashtag" pattern="#[A-Za-z]+" placeholder="# + max 10 letters" maxlength="11" required>
 						<input type="submit" name="" value="Submit" id="subTagID">
 					</fieldset>
 
