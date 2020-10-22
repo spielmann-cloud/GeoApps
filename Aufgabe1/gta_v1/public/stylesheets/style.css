@@ -24,8 +24,8 @@ footer{
 
 main{
   display: flex;
-  flex_direction: row;
-  
+  flex-direction: row;
+  justify-content: space-around;
 
 }
 .tagging{
