@@ -36,7 +36,7 @@ main{
   margin-bottom: 7px;
 }
 input{
-  height: 30px;
+  height: 35px;
 }
 .tagging input[type="submit"]{
   height: 30px;
@@ -51,8 +51,7 @@ input{
   margin-left: 20px;
 }
 .discovery{
-    flex: 10;
-
+    flex: 8;
 }
 .taglist{
   float: left;
@@ -66,10 +65,7 @@ input{
 .tagmap{
   width: 50%;
   float: left;
-}
-.tagmap img {
-  display: block;
-
+  margin-top: 14px;
 }
 #filter-form fieldset{
   padding: 15px;
@@ -84,7 +80,6 @@ input{
   width: 90%;
   word-wrap: break-word;
 }
-
 * {
   box-sizing: border-box;
 }
