@@ -30,13 +30,13 @@
 					<fieldset>
 						<legend>Enter new GeoTag</legend>
 						<label for="latID">latitude</label>
-						<input type="text" id="latID" name="latitude" value="">
+						<input type="text" id="latID" name="latitude" value="" placeholder="49.244531899999999995">
 						<label for="longID">longtitude</label>
-						<input type="text" id="longID" name="longtitude" value="">
+						<input type="text" id="longID" name="longtitude" value="" palceholder="8.7248984">
 						<label for="nameID">name</label>
-						<input type="text" id="nameID" name="name" value="">
+						<input type="text" id="nameID" name="name" value="" placeholder="some name">
 						<label for="hashID">hashtag</label>
-						<input type="text" id="hashID" name="hashtag" value="">
+						<input type="text" id="hashID" name="hashtag" value="" placeholder="# + max 10 letters">
 						<input type="submit" name="" value="Submit" id="subTagID">
 					</fieldset>
 
@@ -49,7 +49,12 @@
 				<h2>Discovery</h2>
 
 				<!-- ############### Aufgabe1a Form2 Start -->
-				<form id="filter-form" action="/discovery" method="post"></form>
+				<form id="filter-form" action="/discovery" method="post">
+					<fieldset>
+						<legend>Filter by Searchterm</legend>
+
+					</fieldset>
+				</form>
 				<!-- ############### Aufgabe1a Form2 Ende -->
 
 				<div class="taglist">
