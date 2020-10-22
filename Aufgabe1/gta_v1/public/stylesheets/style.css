@@ -55,8 +55,8 @@ input{
 
 }
 .taglist{
-  display: inline-block;
-  width: 45%;
+  float: left;
+  width: 50%;
 
 }
 .taglist ul{
@@ -65,9 +65,7 @@ input{
 }
 .tagmap{
   width: 50%;
-  margin: 10px;
-  float: right;
-  display: inline-block;
+  float: left;
 }
 .tagmap img {
   display: block;
