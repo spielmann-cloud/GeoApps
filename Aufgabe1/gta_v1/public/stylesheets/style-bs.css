@@ -6,3 +6,87 @@ body {
 a {
   color: #00B7FF;
 }
+
+
+header{
+  background: gray;
+  padding: 15px;
+}
+
+h1{
+  color: white;
+}
+footer{
+  background: gray;
+  padding: 10px;
+  color: white;
+  clear: both;
+  margin-top: 20px;
+  padding: 15px;
+}
+
+
+.tagging label, .tagging input{
+  display: block;
+  margin-bottom: 7px;
+}
+input{
+  height: 35px;
+}
+
+main{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 20px;
+
+}
+.tagging input[type="submit"]{
+  height: 30px;
+  margin-top: 10px;
+}
+.discovery input[type="submit"]{
+  height: 35px;
+  margin-left: 5px;
+}
+
+.tagging{
+  flex: 3;
+  margin-left: 20px;
+}
+.discovery{
+    flex: 9;
+}
+
+
+.taglist{
+  float: left;
+  width: 50%;
+}
+.tagmap{
+  width: 50%;
+  float: left;
+  margin-top: 14px;
+}
+
+.taglist ul{
+  text-align: center;
+  padding-left: 20px;
+}
+
+#filter-form fieldset{
+  padding: 15px;
+}
+#results li{
+  background-color: #00B7FF;
+  padding: 10px;
+  color: white;
+  margin-bottom: 5px;
+  list-style-type: none;
+  text-align: left;
+  width: 90%;
+  word-wrap: break-word;
+}
+* {
+  box-sizing: border-box;
+}

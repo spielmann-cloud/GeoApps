@@ -24,13 +24,7 @@ footer{
   padding: 15px;
 }
 
-main{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  gap: 20px;
 
-}
 .tagging label, .tagging input{
   display: block;
   margin-bottom: 7px;
@@ -46,27 +40,54 @@ input{
   height: 35px;
   margin-left: 5px;
 }
+
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  main{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 20px;
+  }
+
+
+}
+
+@media only screen and (min-width: 768px) {
 .tagging{
-  flex: 2;
+  flex: 3;
   margin-left: 20px;
 }
 .discovery{
-    flex: 8;
+    flex: 9;
 }
-.taglist{
-  float: left;
-  width: 50%;
+main{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 20px;
+
+  }
+  .taglist{
+    float: left;
+    width: 50%;
+  }
+  .tagmap{
+    width: 50%;
+    float: left;
+    margin-top: 14px;
+  }
 
 }
+
+
+
 .taglist ul{
   text-align: center;
   padding-left: 20px;
 }
-.tagmap{
-  width: 50%;
-  float: left;
-  margin-top: 14px;
-}
+
 #filter-form fieldset{
   padding: 15px;
 }
