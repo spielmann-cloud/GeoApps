@@ -53,8 +53,31 @@ input{
 
 
 }
+@media only screen and (min-width: 900px) {
+  .tagging{
+    flex: 3;
+    margin-left: 20px;
+  }
+  .discovery{
+      flex: 9;
+  }
+  main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 20px;
+    }
+    .taglist{
 
-@media only screen and (min-width: 768px) {
+    }
+    .tagmap{
+
+      margin-top: 14px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+  /*For desktop */
 .tagging{
   flex: 3;
   margin-left: 20px;
@@ -78,7 +101,6 @@ main{
     float: left;
     margin-top: 14px;
   }
-
 }
 
 
