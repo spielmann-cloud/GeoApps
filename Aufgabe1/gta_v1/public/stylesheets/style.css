@@ -54,6 +54,7 @@ input{
 
 }
 @media only screen and (min-width: 900px) {
+  /*For Tablets */
   .tagging{
     flex: 3;
     margin-left: 20px;
