@@ -41,14 +41,17 @@ input{
   margin-left: 5px;
 }
 
+main{
+  display: flex;
+  justify-content: space-evenly;
+  gap: 20px;
+  }
+
 
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
-  main{
-    display: flex;
+  .direction{
     flex-direction: column;
-    justify-content: space-evenly;
-    gap: 20px;
   }
 
 
@@ -62,11 +65,8 @@ input{
   .discovery{
       flex: 9;
   }
-  main{
-    display: flex;
+  .direction{
     flex-direction: row;
-    justify-content: space-evenly;
-    gap: 20px;
     }
     .taglist{
 
@@ -86,12 +86,8 @@ input{
 .discovery{
     flex: 9;
 }
-main{
-  display: flex;
+.direction{
   flex-direction: row;
-  justify-content: space-evenly;
-  gap: 20px;
-
   }
   .taglist{
     float: left;
