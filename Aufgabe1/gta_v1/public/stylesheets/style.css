@@ -46,14 +46,14 @@ main{
   justify-content: space-evenly;
   gap: 20px;
   }
-  
+
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
   main{
     flex-direction: column;
   }
 }
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 768px) {
   /*For Tablets */
   .tagging{
     flex: 3;
@@ -70,7 +70,7 @@ main{
     }
 }
 
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1350px) {
   /*For desktop */
   .taglist{
     float: left;
@@ -81,8 +81,6 @@ main{
     float: left;
   }
 }
-
-
 
 .taglist ul{
   text-align: center;
