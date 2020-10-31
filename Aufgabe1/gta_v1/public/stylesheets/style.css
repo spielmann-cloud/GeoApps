@@ -66,27 +66,13 @@ main{
   main{
     flex-direction: row;
     }
-    .taglist{
-
-    }
     .tagmap{
-
       margin-top: 14px;
     }
 }
 
 @media only screen and (min-width: 1200px) {
   /*For desktop */
-.tagging{
-  flex: 3;
-  margin-left: 20px;
-}
-.discovery{
-    flex: 9;
-}
-main{
-  flex-direction: row;
-  }
   .taglist{
     float: left;
     width: 50%;
@@ -94,7 +80,6 @@ main{
   .tagmap{
     width: 50%;
     float: left;
-    margin-top: 14px;
   }
 }
 
