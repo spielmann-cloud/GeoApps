@@ -56,11 +56,13 @@ main{
 @media only screen and (min-width: 768px) {
   /*For Tablets */
   .tagging{
-    flex: 3;
     margin-left: 20px;
   }
-  .discovery{
-      flex: 9;
+  .col-3{
+    flex: 3;
+  }
+  .col-9{
+    flex: 9;
   }
   main{
     flex-direction: row;
