@@ -33,8 +33,8 @@
 						<label for="latID">latitude</label>
 						<!-- Validierung für longtitude and latitude ?-->
 						<input type="text" id="latID" name="latitude" value="" placeholder="49.244531895" required>
-						<label for="longID">longtitude</label>
-						<input type="text" id="longID" name="longtitude" value="" placeholder="8.7248984" required>
+						<label for="longID">longitude</label>
+						<input type="text" id="longID" name="longitude" value="" placeholder="8.7248984" required>
 						<label for="nameID">name</label>
 						<input type="text" id="nameID" name="name" pattern="[a-zA-Z]+" placeholder="some name" maxlength="10" required>
 						<label for="hashID">hashtag</label>
@@ -52,7 +52,7 @@
 
 				<!-- ############### Aufgabe1a Form2 Start -->
 				<strong>
-				<form id="filter-form" action="/discovery" method="post">
+				<form id="filter-form" action="/discovery" method="post" longitude="hidden" latitude="hidden">
 					<fieldset>
 						<legend>Filter by Searchterm</legend>
 						<input id="searchID" type="text" name="" value="" placeholder="search item" required>
