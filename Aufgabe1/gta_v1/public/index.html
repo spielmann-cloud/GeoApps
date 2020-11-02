@@ -52,12 +52,13 @@
 
 				<!-- ############### Aufgabe1a Form2 Start -->
 				<strong>
-				<form id="filter-form" action="/discovery" method="post" filter-longitude="hidden" filter-latitude="hidden">
+				<form id="filter-form" action="/discovery" method="post">
 					<fieldset>
 						<legend>Filter by Searchterm</legend>
 						<input id="searchID" type="text" name="" value="" placeholder="search item" required>
 						<input type="submit" name="" value="apply" id="subFind">
-
+						<input id="filter-longitude" type="hidden" name="longitude" value="">
+						<input id="filter-latitude" type="hidden" name="latitude" value="">
 					</fieldset>
 				</form>
 			</strong>
