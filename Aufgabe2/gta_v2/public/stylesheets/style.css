@@ -1,0 +1,107 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+header{
+  background: gray;
+  padding: 15px;
+}
+
+h1{
+  color: white;
+}
+footer{
+  background: gray;
+  padding: 10px;
+  color: white;
+  clear: both;
+  margin-top: 20px;
+  padding: 15px;
+}
+
+
+.tagging label, .tagging input{
+  display: block;
+  margin-bottom: 7px;
+}
+input{
+  height: 35px;
+}
+.tagging input[type="submit"]{
+  height: 30px;
+  margin-top: 10px;
+}
+.discovery input[type="submit"]{
+  height: 35px;
+  margin-left: 5px;
+}
+
+main{
+  display: flex;
+  justify-content: space-evenly;
+  gap: 20px;
+  }
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  main{
+    flex-direction: column;
+  }
+}
+@media only screen and (min-width: 768px) {
+  /*For Tablets */
+  .tagging{
+    margin-left: 20px;
+  }
+  .col-3{
+    flex: 3;
+  }
+  .col-9{
+    flex: 9;
+  }
+  main{
+    flex-direction: row;
+    }
+    .tagmap{
+      margin-top: 14px;
+    }
+}
+
+@media only screen and (min-width: 1350px) {
+  /*For desktop */
+  .taglist{
+    float: left;
+    width: 50%;
+  }
+  .tagmap{
+    width: 50%;
+    float: left;
+  }
+}
+
+.taglist ul{
+  text-align: center;
+  padding-left: 20px;
+}
+
+#filter-form fieldset{
+  padding: 15px;
+}
+#results li{
+  background-color: #00B7FF;
+  padding: 10px;
+  color: white;
+  margin-bottom: 5px;
+  list-style-type: none;
+  text-align: left;
+  width: 90%;
+  word-wrap: break-word;
+}
+* {
+  box-sizing: border-box;
+}
