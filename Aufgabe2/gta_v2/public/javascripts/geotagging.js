@@ -144,9 +144,7 @@ var gtaLocator = (function GtaLocator(geoLocationApi) {
               var latitude = $("#longID").val();
               var longitude = $("#latID").val();
 
-              console.log("longitude = " + longitude);
-              console.log("latitude = " + latitude);
-              var locUrl = getLocationMapSrc(latitude, longitude);
+              var locUrl = getLocationMapSrc(longitude, latitude); //error function 
 
               $(".tagmap img").attr("src", locUrl);
 
