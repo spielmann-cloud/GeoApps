@@ -30,13 +30,19 @@ app.set('view engine', 'ejs');
  */
 
 // TODO: CODE ERGÄNZEN
-
+app.use(express.static(__dirname + "/public"));
 /**
  * Konstruktor für GeoTag Objekte.
  * GeoTag Objekte sollen min. alle Felder des 'tag-form' Formulars aufnehmen.
  */
 
 // TODO: CODE ERGÄNZEN
+var GeoClass = function(latitude, longitude, name, hashtag){
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.name = name;
+    this.hashtag = hashtag;
+};
 
 /**
  * Modul für 'In-Memory'-Speicherung von GeoTags mit folgenden Komponenten:
@@ -49,6 +55,7 @@ app.set('view engine', 'ejs');
 
 // TODO: CODE ERGÄNZEN
 
+var geo = require("./geolocation/geo.js");
 /**
  * Route mit Pfad '/' für HTTP 'GET' Requests.
  * (http://expressjs.com/de/4x/api.html#app.get.method)
@@ -78,7 +85,23 @@ app.get('/', function(req, res) {
  */
 
 // TODO: CODE ERGÄNZEN START
+var url = require("url");
+app.post('/tagging', function(req, res){
 
+
+        var geoObj = new GeoClass(req.body["latitude"], req.body["longitude"], req.body["name"], req.body["hashtag"]);
+
+        geo.add(geoObj);
+
+        res.render("gta", {
+            latitude: geoObj.latitude,
+            longitude: geoObj.longitude,
+            name: geoObj.name,
+            hashtag: geoObj.hashtag,
+            taglist: geo.geoObjArray
+        });
+    //}
+});
 /**
  * Route mit Pfad '/discovery' für HTTP 'POST' Requests.
  * (http://expressjs.com/de/4x/api.html#app.post.method)
@@ -92,6 +115,19 @@ app.get('/', function(req, res) {
  */
 
 // TODO: CODE ERGÄNZEN
+app.post('/discovery', function(req, res){
+
+    if(typeof req.body["searchBox"] !== "undefined"){
+        var searchItem = req.body["searchBox"];
+        var result = geo.search(searchItem.toString());
+        if(result.length > 0){
+            res.render("gta", {
+                taglist : result
+            });
+
+        }
+    }
+});
 
 /**
  * Setze Port und speichere in Express.

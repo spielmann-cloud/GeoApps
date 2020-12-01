@@ -130,7 +130,9 @@ var gtaLocator = (function GtaLocator(geoLocationApi) {
           $("#data-longitude").val(longitude);
 
 
-          var locUrl = getLocationMapSrc(latitude, longitude); //error function 
+          var tags = JSON.parse($(".tagmap img").attr("data-tags"));
+          console.log(tags);
+          var locUrl = getLocationMapSrc(latitude, longitude, tags);
 
           $(".tagmap img").attr("src", locUrl);
 
@@ -143,19 +145,8 @@ var gtaLocator = (function GtaLocator(geoLocationApi) {
 
         updateLocation: function() {
             // TODO Hier Inhalt der Funktion "update" ergänzen
-
-/*
-            $("#data-longitude").change(function(){
-              var latitude = $("#longID").val();
-              var longitude = $("#latID").val();
-
-              var locUrl = getLocationMapSrc(longitude, latitude); //error function 
-
-              $(".tagmap img").attr("src", locUrl);
-
-            }); */
-
-            tryLocate(this.successCallback, this.failCallback);
+            if($("#longID").val() === "" && $("#latID").val() === "")
+                tryLocate(this.successCallback, this.failCallback);
 
 
         }
