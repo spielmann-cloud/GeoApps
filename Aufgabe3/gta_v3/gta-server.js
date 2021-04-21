@@ -13,6 +13,8 @@ var http = require('http');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var express = require('express');
+var cookies = require("cookie-parser");
+var credentials = require("./credentials.js");
 
 var app;
 app = express();
@@ -20,6 +22,7 @@ app.use(logger('dev'));
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+app.use(cookies(credentials.cookieSecret));
 
 // Setze ejs als View Engine
 app.set('view engine', 'ejs');
@@ -37,7 +40,7 @@ app.use(express.static(__dirname + "/public"));
  */
 
 // TODO: CODE ERGÄNZEN
-var GeoClass = function(latitude, longitude, name, hashtag){
+var GeoClass = function (latitude, longitude, name, hashtag) {
     this.latitude = latitude;
     this.longitude = longitude;
     this.name = name;
@@ -65,10 +68,12 @@ var geo = require("./geolocation/geo.js");
  * Als Response wird das ejs-Template ohne Geo Tag Objekte gerendert.
  */
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     res.render('gta', {
         taglist: []
     });
+    geo.amount++;
+    geo.myip = new GeoClass();
 });
 
 /**
@@ -86,20 +91,25 @@ app.get('/', function(req, res) {
 
 // TODO: CODE ERGÄNZEN START
 var url = require("url");
-app.post('/tagging', function(req, res){
+app.post('/tagging', function (req, res) {
 
 
-        var geoObj = new GeoClass(req.body["latitude"], req.body["longitude"], req.body["name"], req.body["hashtag"]);
+    var geoObj = new GeoClass(req.body["latitude"], req.body["longitude"], req.body["name"], req.body["hashtag"]);
 
-        geo.add(geoObj);
+    geo.add(geoObj);
 
-        res.render("gta", {
-            latitude: geoObj.latitude,
-            longitude: geoObj.longitude,
-            name: geoObj.name,
-            hashtag: geoObj.hashtag,
-            taglist: geo.geoObjArray
-        });
+    geo.myip.latitude = req.body["latitude2"];
+    geo.myip.longitude = req.body["longitude2"];
+
+    res.render("gta", {
+        latitude: geoObj.latitude,
+        longitude: geoObj.longitude,
+        name: geoObj.name,
+        hashtag: geoObj.hashtag,
+        taglist: geo.geoObjArray,
+        iplat: geo.myip.latitude,
+        iplong : geo.myip.longitude,
+    });
     //}
 });
 /**
@@ -115,18 +125,61 @@ app.post('/tagging', function(req, res){
  */
 
 // TODO: CODE ERGÄNZEN
-app.post('/discovery', function(req, res){
+app.post('/discovery', function (req, res) {
 
-    if(typeof req.body["searchBox"] !== "undefined"){
-        var searchItem = req.body["searchBox"];
-        var result = geo.search(searchItem.toString());
-        if(result.length > 0){
+    console.log("Here are our cookies !");
+    console.log(req.cookies);
+
+    geo.myip.latitude = req.body["latitude"];
+    geo.myip.longitude = req.body["longitude"];
+
+    var searchItem = req.body["searchBox"];
+    var result = geo.search(searchItem.toString());
+    if (searchItem !== "") {
+        if (result.length > 0) {
             res.render("gta", {
-                taglist : result
+                latitude: result[0].latitude,
+                longitude: result[0].longitude,
+                name: result[0].name,
+                hashtag: result[0].hashtag,
+                taglist: result,
+                amount: geo.amount,
+                iplat: geo.myip.latitude,
+                iplong: geo.myip.longitude,
             });
+        } else {
+            res.render("gta", {
+                taglist: result,
+                amount: geo.amount,
+                iplat: geo.myip.latitude,
+                iplong: geo.myip.longitude,
+            });
+        }
+    } else {
+        result = geo.searchByRadiusAndCoordinate(10, geo.myip.latitude, geo.myip.longitude);
 
+        if(result.length > 0 && req.body["latitude"] !== "undefined") {
+            res.render("gta", {
+                taglist: result,
+                latitude: result[0].latitude,
+                longitude: result[0].longitude,
+                name: result[0].name,
+                hashtag: result[0].hashtag,
+                amount: geo.amount,
+                iplat: geo.myip.latitude,
+                iplong: geo.myip.longitude,
+            });
+        }
+        else {
+            res.render("gta", {
+                taglist: [],
+                amount: geo.amount,
+                iplat: geo.myip.latitude,
+                iplong: geo.myip.longitude,
+            });
         }
     }
+
 });
 
 /**

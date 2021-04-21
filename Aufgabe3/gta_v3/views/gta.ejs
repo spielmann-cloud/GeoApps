@@ -56,7 +56,28 @@
 							<input type="text" id="hashID" name="hashtag"  pattern="#[A-Za-z]+" placeholder="# + max 10 letters" maxlength="11" required>
 
 						<% }%>
-							<input type="submit" name="" value="submit" id="subTagID">
+
+						<input type="submit" name="" value="submit" id="subTagID">
+
+						<% if(typeof iplat !== "undefined")  {%>
+						<input id="data-latitude2" type="hidden" name="latitude2" value=<%- iplat %> >
+						<% } else { %>
+							<input id="data-latitude2" type="hidden" name="latitude2" value="">
+						<% }%>
+
+						<% if(typeof iplong !== "undefined")  {%>
+						<input id="data-longitude2" type="hidden" name="longitude2" value=<%- iplong %>>
+						<% } else { %>
+							<input id="data-longitude2" type="hidden" name="longitude2" value="">
+						<% }%>
+
+
+						<% if(typeof amount !== "undefined")  {%>
+							<input id="data-amount2" type="hidden" name="amount2" value=<%- amount %>>
+						<% } else { %>
+							<input id="data-amount2" type="hidden" name="amount2" value="0">
+						<% }%>
+
 					</fieldset>
 
 				</form>
@@ -72,10 +93,28 @@
 				<form id="filter-form" action="/discovery" method="post">
 					<fieldset>
 						<legend>Filter by Searchterm</legend>
-						<input id="searchID" type="text" name="searchBox" value="" placeholder="search item" required>
+						<input id="searchID" type="text" name="searchBox" value="" placeholder="search item">
+
+
+						<% if(typeof amount !== "undefined")  {%>
+						<input id="data-amount" type="hidden" name="amount" value=<%- amount %>>
+						<% } else { %>
+							<input id="data-amount" type="hidden" name="amount" value="0">
+							   <% }%>
+
+						<% if(typeof iplat !== "undefined")  {%>
+						<input id="data-latitude" type="hidden" name="latitude" value=<%- iplat %>>
+						<% } else { %>
+							<input id="data-latitude" type="hidden" name="latitude" value="">
+						<% }%>
+
+						<% if(typeof iplong !== "undefined")  {%>
+						<input id="data-longitude" type="hidden" name="longitude" value=<%- iplong %>>
+						<% } else { %>
+							<input id="data-longitude" type="hidden" name="longitude" value="">
+						<% }%>
+
 						<input type="submit" name="" value="apply" id="subFind">
-						<input id="data-longitude" type="hidden" name="longitude" value="">
-						<input id="data-latitude" type="hidden" name="latitude" value="">
 					</fieldset>
 				</form>
 			</strong>

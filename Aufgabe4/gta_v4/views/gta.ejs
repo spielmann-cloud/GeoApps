@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoTagApp</title>
+    <link rel='stylesheet' href="stylesheets/style.css"/>
+</head>
+
+<body>
+
+<header>
+    <img src="./images/location.png" width="100"
+         alt="an image of a map and location">
+    <h1>GeoTagApp</h1>
+    <nav>
+        <a href="#">About</a> | <a href="#">Help</a> | <a
+                href="/">Home</a>
+    </nav>
+</header>
+
+<main>
+
+    <section class="tagging col-3">
+        <h2>Tagging</h2>
+
+        <!-- ############### Aufgabe1a Form1 Start -->
+        <strong>
+            <form id="tag-form" method="get">
+                <fieldset>
+                    <legend>Enter new GeoTag</legend>
+                    <label for="latID">latitude</label>
+                    <!-- Validierung für longtitude and latitude ?-->
+                    <% if(typeof latitude !== 'undefined') { -%>
+                        <input type="text" id="latID" name="latitude" value=<%- latitude %> placeholder="49.244531895"
+                               required>
+                    <% } else { %>
+                        <input type="text" id="latID" name="latitude" value="" placeholder="49.244531895" required>
+                    <% } %>
+                    <label for="longID">longitude</label>
+                    <% if(typeof longitude !== "undefined")  { %>
+                        <input type="text" id="longID" name="longitude" value=<%- longitude %> placeholder="8.7248984"
+                               required>
+                    <% } else { %>
+                        <input type="text" id="longID" name="longitude" value="" placeholder="8.7248984" required>
+                    <% } %>
+                    <label for="nameID">name</label>
+                    <% if(typeof name !== "undefined") { %>
+                        <input type="text" id="nameID" name="name" value=<%- name %>  pattern="[a-zA-Z]+"
+                               placeholder="some name" maxlength="10" required>
+                    <% } else { %>
+                        <input type="text" id="nameID" name="name" value="" pattern="[a-zA-Z]+" placeholder="some name"
+                               maxlength="10" required>
+                    <% } %>
+                    <label for="hashID">hashtag</label>
+                    <% if(typeof hashtag !== "undefined") { %>
+                        <input type="text" id="hashID" name="hashtag" value=<%- hashtag %> pattern="#[A-Za-z]+"
+                               placeholder="# + max 10 letters" maxlength="11" required>
+                    <% } else { %>
+                        <input type="text" id="hashID" name="hashtag" value="" pattern="#[A-Za-z]+"
+                               placeholder="# + max 10 letters" maxlength="11" required>
+
+                    <% } %>
+
+                    <!-- onclick="tag()" to ADD IF TROUBLES -->
+                    <input type="button" name="" value="submit" id="subTagID">
+
+
+                </fieldset>
+
+            </form>
+            <!-- ############### Aufgabe1a Form1 Ende -->
+        </strong>
+    </section>
+
+    <section class="discovery col-9">
+        <h2>Discovery</h2>
+
+        <!-- ############### Aufgabe1a Form2 Start -->
+        <strong>
+            <form id="filter-form">
+                <fieldset>
+                    <legend>Filter by Searchterm</legend>
+                    <input id="searchID" type="text" name="searchBox" value="" placeholder="search item">
+
+                    <% if(typeof amount !== "undefined")  { %>
+                        <input id="data-amount" type="hidden" name="amount" value=<%- amount %>>
+                    <% } else { %>
+                        <input id="data-amount" value="" type="hidden" name="amount" value="0">
+                    <% } %>
+
+                    <% if(typeof iplat !== "undefined")  { %>
+                        <input id="data-latitude" type="hidden" name="latitude" value=<%- iplat %>>
+                    <% } else { %>
+                        <input id="data-latitude" value="" type="hidden" name="latitude" value="">
+                    <% } %>
+
+                    <% if(typeof iplong !== "undefined")  { %>
+                        <input id="data-longitude" type="hidden" name="longitude" value=<%- iplong %>>
+                    <% } else { %>
+                        <input id="data-longitude" type="hidden" value="" name="longitude" value="">
+                    <% } %>
+
+                    <input type="button" name="" value="apply" id="subFind" onclick="discovery()">
+                </fieldset>
+            </form>
+        </strong>
+        <!-- ############### Aufgabe1a Form2 Ende -->
+
+        <div class="taglist">
+            <ul id="results">
+                <!-- TODO: HTML AUS AUFGABE2 HIERHER KOPIEREN UND DIE BEISPIEL-EINTRÄGE DER DISCOVERY-LISTE MIT DEN FOLGENDEN ZEILEN ERSETZEN -->
+
+                <% /* if (taglist !== undefined)  taglist.forEach(function(gtag) {  %>
+                <li><%=  gtag.name  %> ( <%=  gtag.latitude  %>,<%=  gtag.longitude  %>) <%=  gtag.hashtag  %> </li>
+                <%  }); */ %>
+            </ul>
+
+            <div class="pag">
+                <div id="pagination-wrapper">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="tagmap">
+            <% if (taglist !== undefined) { %>
+                <img id="result-img" src="./images/mapview.jpg" alt="a map with locations"
+                     data-tags='<%- JSON.stringify(taglist) %>'
+                />
+            <% } else{ %>
+                <img id="result-img" src="./images/mapview.jpg" alt="a map with locations" data-tags=<%- [] %>/>
+
+            <% } %>
+            <div class="caption">Result map</div>
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    <span>2017 by LKIT</span>
+</footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script src="./javascripts/geotagging.js"></script>
+<script>
+
+
+    document.getElementById("subTagID").addEventListener("click", function (e) {
+
+        var latCheck = document.getElementById("latID").checkValidity();
+        var longCheck = document.getElementById("longID").checkValidity();
+        var nameCheck = document.getElementById("nameID").checkValidity();
+        var hashCheck = document.getElementById("hashID").checkValidity();
+        if (latCheck && longCheck && nameCheck && hashCheck) {
+            console.log("VALID");
+            tag($("#latID").val, $("#longID").val, $("#nameID").val, $("#hashID").val);
+        } else {
+            console.log("NOT VALID");
+            document.getElementById("tag-form").reportValidity();
+        }
+
+        e.preventDefault();
+    }, false);
+
+
+    /*
+  * Start of Pagination
+  * */
+
+
+    function paginationReady(data_table_new, page_state = 1) {
+
+        var tableData = [];
+        data_table_new.forEach(function (elem) {
+            if (elem != null && elem != undefined)
+                tableData.push(elem);
+        });
+        var state = {
+            'querySet': tableData,
+            'page': page_state,
+            'rows': 5,
+            "window": 3 //amount of pages allowed
+        };
+
+
+        function pagination(querySet, page, rows) {
+            var trimStart = (page - 1) * rows;
+            var trimEnd = trimStart + rows;
+
+            var trimmedData = querySet.slice(trimStart, trimEnd);
+
+            var pages = Math.ceil(querySet.length / rows);
+
+            return {
+                'querySet': trimmedData,
+                'pages': pages,
+            }
+        }
+
+        function pageButtons(pages) {
+            var wrapper = document.getElementById("pagination-wrapper");
+            wrapper.innerHTML = "";
+
+            var maxL = (state.page - Math.floor(state.window / 2));
+            var maxR = (state.page + Math.floor(state.window / 2));
+
+            if (maxL < 1) {
+                maxL = 1;
+                maxR = state.window;
+            }
+            if (maxR > pages) {
+                maxR = pages;
+                maxL = pages - (state.window - 1);
+
+                if (maxL < 1) {
+                    maxL = 1;
+                }
+            }
+            for (var page = maxL; page <= maxR; page++) {
+                wrapper.innerHTML += `<button value=${page} class="page btn medium-btn">${page}</button>`
+            }
+            wrapper.innerHTML = `<button class="pageL btn medium-btn"><<</button>` + wrapper.innerHTML;
+            wrapper.innerHTML = wrapper.innerHTML + `<button class="pageR btn medium-btn">>></button>`;
+
+            $('.page').on("click", function () {
+                $('#results').empty();
+                state.page = Number($(this).val());
+                buildTable();
+            });
+
+            $(".pageL").on("click", function () {
+
+                if (state.page > 1) {
+                    $("#results").empty();
+                    state.page--;
+                    buildTable();
+                }
+
+            });
+            $(".pageR").on("click", function () {
+
+                if (state.page < pages) {
+                    $("#results").empty();
+                    state.page++;
+                    buildTable();
+                }
+
+            });
+            $("button").each(function (elem) {
+
+                if ($("button").eq(Number(elem)).text() == String(state.page)) {
+                    $("button").eq(Number(elem)).css("color", "black");
+                }
+
+            });
+        }
+
+        function buildTable() {
+            var data = pagination(state.querySet, state.page, state.rows);
+
+
+            data.querySet.forEach(function (elem) {
+                var list_element = $('<li>');
+
+                list_element.attr("data-listLatitude", elem.latitude);
+                list_element.attr("data-listLongitude", elem.longitude);
+                list_element.on("click", function () {
+                        $("#latID").val(elem.latitude);
+                        $("#longID").val(elem.longitude);
+                        $("#nameID").val(elem.name);
+                        $("#hashID").val(elem.hashtag);
+                        gtaLocator.newLocationUpdate(elem.latitude, elem.longitude)
+                    }
+                );
+                list_element.text(elem.name + " (" + elem.latitude + ", " + elem.longitude + ") " + elem.hashtag);
+                $('#results').append(list_element);
+            });
+
+
+            pageButtons(data.pages);
+
+        }
+
+        buildTable();
+
+
+    }
+
+    var parsedData = JSON.parse($(".tagmap img").attr("data-tags"));
+    paginationReady(parsedData, 1);
+
+
+
+    /*
+    * End of Pagination
+    * */
+
+
+    function discovery() {
+        var url = 'http://localhost:3000/discovery' + '?searchInput=' + document.getElementById("searchID").value;
+        var ajax = new XMLHttpRequest();
+
+        ajax.open("get", url, true);
+
+        ajax.onload = function () {
+            var msg = JSON.parse(ajax.responseText);
+            if (ajax.readyState == 4 && ajax.statusText == "OK") {
+                console.log("status is ok");
+                $("#results").empty();
+
+                if (msg.loc_data != undefined) {
+                    $("#latID").val("");
+                    $("#longID").val("");
+                    $("#nameID").val("");
+                    $("#hashID").val("");
+
+                    if (msg.results.length == 0) {
+                        paginationReady(parsedData, 1);
+                        if (document.cookie != "")
+                            window.alert("No locations around 10 km ");
+
+                    } else {
+                        paginationReady(msg.results, 1);
+                    }
+                } else {
+                    if (msg.results.length > 0) {
+                        $("#latID").val(msg.results[msg.results.length - 1].latitude);
+                        $("#longID").val(msg.results[msg.results.length - 1].longitude);
+                        $("#nameID").val(msg.results[msg.results.length - 1].name);
+                        $("#hashID").val(msg.results[msg.results.length - 1].hashtag);
+                        $(".tagmap img").attr("data-tags", JSON.stringify(msg.results));
+
+
+                        paginationReady(msg.results, 1);
+
+                    } else {
+                        $("#latID").val("");
+                        $("#longID").val("");
+                        $("#nameID").val("");
+                        $("#hashID").val("");
+                        paginationReady(parsedData, 1);
+                        window.alert("No matches");
+                    }
+                }
+
+
+                gtaLocator.updateLocation();
+            } else {
+                console.log("error occurs");
+            }
+        }
+
+        ajax.send(null);
+    }
+
+    //TODO: Delete parameters they are not needed
+    function tag(plat, plong, pname, phashtag) {
+        var url = 'http://localhost:3000/tagging';
+        var ajax = new XMLHttpRequest();
+        var latitude = document.getElementById('latID').value || plat;
+        var longitude = document.getElementById('longID').value || plong;
+        var name = document.getElementById('nameID').value || pname;
+        var hashtag = document.getElementById('hashID').value || phashtag;
+
+        console.log("OUR DATA ");
+
+        var data = JSON.stringify({
+            latitude: latitude,
+            longitude: longitude,
+            name: name,
+            hashtag: hashtag
+        });
+        console.log(data);
+
+        ajax.open('POST', url, true);
+        ajax.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+        ajax.onload = function () {
+            var values = JSON.parse(ajax.responseText);
+            if (ajax.readyState == 4 && ajax.status == '200') {
+                console.table('Transfer - Success');
+                if (values.msg) {
+                    var our_tags = values["our_tags"];
+                    // var list_element = $('<li>');
+
+                    // list_element.text(name + " (" + latitude + ", " + longitude + ") " + hashtag);
+                    //$('#results').append(list_element);
+                    // var input_data = JSON.parse(data);
+                    // var tags = JSON.parse($(".tagmap img").attr("data-tags"));
+                    //tags.push(input_data);
+                    //tags = JSON.stringify(tags);
+
+                    //TODO:clean after adding NEW !!!!!!
+                    $("#nameID").val("");
+                    $("#latID").val("");
+                    $("#longID").val("");
+                    $("#hashID").val("");
+
+
+                    $(".tagmap img").attr("data-tags", JSON.stringify(our_tags));
+                    parsedData = our_tags;
+                    $("#results").empty();
+                    paginationReady(our_tags, 1);
+                    //gtaLocator.updateLocation();
+                    gtaLocator.newLocationUpdate(latitude, longitude);
+                } else {
+                    console.log("Object already exists");
+                }
+
+            } else {
+                console.error('Error occurs');
+            }
+        };
+        ajax.send(data);
+    }
+</script>
+
+
+</body>
+</html>

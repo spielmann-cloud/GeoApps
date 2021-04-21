@@ -38,9 +38,12 @@ function deg2rad(deg) {
 var searchByRadiusAndCoordinate = function(radius, latitude, longitude){
     var results = [];
     geoObjArray.forEach(function(element){
-        var dist = getDistanceFromLatLonInKm(element.latitude, element.longitude, latitude, longitude);
-        if(dist <= radius){
-            results.push(element);
+        if(element != undefined && element != null) {
+            var dist = getDistanceFromLatLonInKm(element.latitude, element.longitude, latitude, longitude);
+            console.log("DISTANE = " + dist);
+            if (dist <= radius) {
+                results.push(element);
+            }
         }
     });
     return results;
@@ -48,41 +51,46 @@ var searchByRadiusAndCoordinate = function(radius, latitude, longitude){
 
 var search = function(searchTerm){
     var results = [];
+
+
     geoObjArray.forEach(function(element){
 
-        var compareName = element.name.toLowerCase().search(searchTerm.toLowerCase());
-        var compareHashTags = element.hashtag.toLowerCase().search(searchTerm.toLowerCase());
+        if(element != null && element != undefined) {
+            var compareName = element.name.toLowerCase().search(searchTerm.toLowerCase());
+            var compareHashTags = element.hashtag.toLowerCase().search(searchTerm.toLowerCase());
 
 
-        if(compareHashTags != -1 || compareName != -1){
-            results.push(element);
+            if (compareHashTags != -1 || compareName != -1) {
+                results.push(element);
+            }
         }
 
-
-        console.log(element.name);
-        console.log(element.hashtag);
-        console.log(typeof element.name);
     });
     return results;
+}
+var setter = function(obj){
+    if(obj != undefined && obj != null)
+        geoObjArray = obj;
+
 }
 
 var add = function(geoObj){
     if(geoObj !== null && geoObj !== undefined){
         var addOrNot = true;
+        /*
         geoObjArray.forEach(function (element){
             if(element.name.toLowerCase() === geoObj.name.toLowerCase()){
                 addOrNot = false;
             } else if(element.longitude == geoObj.longitude && element.latitude == geoObj.latitude)
                 addOrNot = false;
         });
+         */
         if(addOrNot) {
             geoObjArray.push(geoObj);
-            console.log(geoObj);
             return 1;
         }
     }
-    console.log(geoObj);
-    return -1;
+    return 0;
 }
 
 var deleteGeo = function(geoObj){
@@ -90,11 +98,12 @@ var deleteGeo = function(geoObj){
         geoObjArray.pop(geoObj);
         return 1;
     }
-    return -1;
+    return 0;
 }
 
 var myip;
 
+exports.setter= setter;
 exports.deleteGeo = deleteGeo;
 exports.add = add;
 exports.search = search;

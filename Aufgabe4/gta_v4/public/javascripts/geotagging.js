@@ -135,7 +135,7 @@ if(numPoints == 1 || ((min_lat == max_lat)&&(min_lon == max_lon))){
         var urlString = "https://www.mapquestapi.com/staticmap/v4/getmap?key=" +
             apiKey + "&size=600,400&zoom=" + zoom + "&center=" + lat + "," + lon + "&" + tagList;
 
-        console.log("Generated Maps Url: " + urlString);
+
         return urlString;
     };
 
@@ -161,9 +161,16 @@ if(numPoints == 1 || ((min_lat == max_lat)&&(min_lon == max_lon))){
             $("#latID").val(latitude);
             $("#data-latitude2").val(latitude);
             $("#data-longitude2").val(longitude);
+            var data_tags = JSON.parse($(".tagmap img").attr("data-tags"));
 
-            var tags = JSON.parse($(".tagmap img").attr("data-tags"));
-            var locUrl = getLocationMapSrc(latitude, longitude, tags);
+            var clear_data = [];
+            data_tags.forEach(function(elem){
+                if(elem != null && elem != undefined){
+                    clear_data.push(elem);
+                }
+            } );
+
+            var locUrl = getLocationMapSrc(latitude, longitude, clear_data);
             $(".tagmap img").attr("src", locUrl);
 
             document.cookie = "iplat=" + getCLatitude;
@@ -179,6 +186,20 @@ if(numPoints == 1 || ((min_lat == max_lat)&&(min_lon == max_lon))){
                 window.alert(error);
         },
 
+        newLocationUpdateArray: function(lat, long, arr){
+            var clear_tags = [];
+            arr.forEach(function(elem){
+                if(elem != null && elem != undefined){
+                    clear_tags.push(elem);
+                }
+            } );
+            var locUrl = getLocationMapSrc(lat, long, clear_tags, 14);
+            $(".tagmap img").attr("src", locUrl);
+        },
+        newLocationUpdate: function(lat, long){
+            var locUrl = getLocationMapSrc(lat, long, undefined, 14);
+            $(".tagmap img").attr("src", locUrl);
+        },
 
         updateLocation: function() {
             // TODO Hier Inhalt der Funktion "update" ergänzen
@@ -188,8 +209,18 @@ if(numPoints == 1 || ((min_lat == max_lat)&&(min_lon == max_lon))){
 
             } else {
                 var tags = JSON.parse($(".tagmap img").attr("data-tags"));
+
+                var clear_tags = [];
+                tags.forEach(function(elem){
+                    if(elem != null && elem != undefined){
+                        clear_tags.push(elem);
+                    }
+                } );
+               // var tags = [];
+               // tags = $("#results").toArray();
+               // console.log(tags);
                 //var chosenZoom = getMaximumZoomLevel(this.getMinimumLat(tags), this.getMaximumLat(tags), this.getMinimumLon(tags), this.getMaximumLon(tags), tags.length) - 1;
-                var locUrl = getLocationMapSrc(tags[tags.length - 1].latitude, tags[tags.length - 1].longitude, tags, 14);
+                var locUrl = getLocationMapSrc(clear_tags[clear_tags.length - 1].latitude, clear_tags[clear_tags.length - 1].longitude, clear_tags, 14);
                 $(".tagmap img").attr("src", locUrl);
 
             }
